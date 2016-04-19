@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" type="text/css" href="/static/bootstrap.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/bootstrap.min.js" ></script>
+    	<title>Data Science </title>
+</head>
+<body class="container">
+<h2> Data Science Project CS9637</h2> 
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <ul class="nav navbar-nav">
+        <li class="active"><a class="navbar-brand" href="/">Home</a></li>
+         <li>   <a class="navbar-brand" href="/table">DATA</a></li>
+        </u>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        <li><a href="/create">Create Graph</a></li>
+        <li><a href="/predict">Predict</a></li>
+        <li><a href="/pivot">Pivot</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/pivot">Pivot</a></li>
+            <li><a href="/highchart">highchart</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="static/2013CodebookCanadianSurvey.pdf">Code book PDF</a></li>
+        <li><a  href="mailto:schopr9@uwo.ca">Contact us</a></li>
+        <li><a  href="/" onclick="logout()">Logout</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+	 {% block content %}{% endblock %}
+
+<script>
+
+ $( "table" ).addClass( "table table-bordered" );
+</script>
+<script>
+    function logout() {
+     
+    	// To invalidate a basic auth login:
+    	// 
+    	// 	1. Call this logout function.
+    	//	2. It makes a GET request to an URL with false Basic Auth credentials
+    	//	3. The URL returns a 401 Unauthorized
+    	// 	4. Forward to some "you-are-logged-out"-page
+    	// 	5. Done, the Basic Auth header is invalid now
+     
+    	jQuery.ajax({
+                type: "GET",
+                url: "/myapp/logout",
+                async: false,
+                username: "logmeout",
+                password: "123456",
+                headers: { "Authorization": "Basic xxx" }
+    	})
+    	.done(function(){
+    	    // If we don't get an error, we actually got an error as we expect an 401!
+    	})
+    	.fail(function(){
+    	    // We expect to get an 401 Unauthorized error! In this case we are successfully 
+                // logged out and we redirect the user.
+    	    window.location = "/";
+        });
+     
+        return false;
+    }
+</script>
+ 
+<script type="text/javascript" src="/static/bootstrap.min.js"></script>
+	 </body>
+</html>
+

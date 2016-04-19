@@ -1,0 +1,55 @@
+{% extends "myreport.html" %}
+{% block content %}
+
+<div class="panel panel-success">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Create total count graph for any question</div>
+  <div class="panel-body">
+        <p> Select any column from the codebook and you can create a value count for each value in the column </p>  </div>
+        <div class="col-sm-offset-2">
+            <form method="post" action="/create">
+              <fieldset class="form-group">
+                Please select the Dataset
+                <div class="radio">
+                  <label class="radio-inline"><input type="radio" value="western" name="optradio">western</label>
+                    <label class="radio-inline"><input type="radio" value="canada" name="optradio">canada</label>
+                </div>
+                <label for="formGroupExampleInput">Column Name in the Codebook</label>
+                  <input list="browsers" name="columnname">
+                  <datalist id="browsers">
+                    {% for item in navigation %}
+                    <option value="{{item}}">
+                    {% endfor %}
+                  </datalist>
+              </fieldset>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+</div>
+
+<br>
+
+<script>
+$(document).ready(function(){
+ $("#form1").submit(function(e) {
+
+    var url = "/picture"; // the script where you handle the form input.
+    var car1 = $("#car").val();
+    $.ajax({
+           type: "POST",
+           url: url,
+           dataType: "json",
+           data: JSON.stringify(car: "saab"), // serializes the form's elements.
+           success: function(result){
+            $("#div1").html(result);
+        }});
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+});
+});
+
+</script>
+
+
+
+{% endblock %}

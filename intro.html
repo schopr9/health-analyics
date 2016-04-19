@@ -1,0 +1,50 @@
+{% extends "myreport.html" %}
+{% block content %}
+
+
+<blockquote>
+<p>"When statistics are not based on strictly accurate calculations, they mislead instead of guide. The mind
+easily lets itself be taken in by the false appearance of exactitude which statistics retain in their
+mistakes, and confidently adopts errors clothed in the form of mathematical truth."
+</p>
+<p><small>Alexis de Tocqueville, Democracy in America</small></p>
+</blockquote>
+
+<h1> <center>National College Health Assesment 2013 </center></h1>
+
+<h2> Abstract </h2>
+<p>
+Survey data analysis is usually about what majority of people thinks and which is majority counted for example 90% of the people thinks we should stop smoking. Our objective is little different, we will try to get some more insight from this survey data which might be useful in understanding the characteristic and state of mind of person answering the question as that pattern may act as a guide to understand that person situation. We will be using Decision trees algorithm to recognize the pattern in the data and will try to predict the target feature such as stress based on if a student is graduate/undergraduate, alcohol intake, impact of internet/computer games etc and will provide the accuracy and probability of the prediction. 
+</p>
+<h2> Introduction </h2>
+
+<p>
+National College Health Assessment (NCHA) survey for June 2013, is the data for the health of 	Canadian post-secondary students where more than 32,000 students over 30 Canadian 	institutions took part in the survey.
+
+	From the survey data, we can ask different questions, for example, based on the certain pattern 	on how students have answered survey questions, we can train our predictor to predict the 	target feature. One of the patterns can be if a person has answered in the survey about general 	health, nutrition and exercise which are selected features, we can predict the target feature i.e. 	BMI of that person.
+</p>
+
+<script>
+$(document).ready(function(){
+ $("#form1").submit(function(e) {
+
+    var url = "/picture"; // the script where you handle the form input.
+    var car1 = $("#car").val();
+    $.ajax({
+           type: "POST",
+           url: url,
+           dataType: "json",
+           data: JSON.stringify(car: "saab"), // serializes the form's elements.
+           success: function(result){
+            $("#div1").html(result);
+        }});
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+});
+});
+
+</script>
+
+
+
+{% endblock %}

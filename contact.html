@@ -1,0 +1,28 @@
+{% extends "myreport.html" %}
+{% block content %}
+
+
+<script>
+$(document).ready(function(){
+ $("#form1").submit(function(e) {
+
+    var url = "/picture"; // the script where you handle the form input.
+    var car1 = $("#car").val();
+    $.ajax({
+           type: "POST",
+           url: url,
+           dataType: "json",
+           data: JSON.stringify(car: "saab"), // serializes the form's elements.
+           success: function(result){
+            $("#div1").html(result);
+        }});
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+});
+});
+
+</script>
+
+
+
+{% endblock %}

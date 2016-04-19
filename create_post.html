@@ -1,0 +1,117 @@
+{% extends "myreport.html" %}
+{% block content %}
+
+<h1><center>{{title}}</center></h1>
+
+    <div class="row">    
+    
+        <div class="col-sm-4" >
+            {{national_pivot_table}}
+        </div>
+        <div class="col-sm-offset-4">
+            <img src="/static/graph1.jpg" alt="graph" >
+        </div>
+    </div>
+<h1><center>Undergraduate</center></h1>
+
+    <div class="row">    
+    
+        <div class="col-sm-4" >
+            {{undergraduate}}
+        </div>
+        <div class="col-sm-offset-4">
+            <img src="/static/undergraduate.jpg" alt="graph" >
+        </div>
+    </div>
+
+<h1><center>Graduate</center></h1>
+
+    <div class="row">    
+    
+        <div class="col-sm-4" >
+            {{graduate}}
+        </div>
+        <div class="col-sm-offset-4">
+            <img src="/static/graduate.jpg" alt="graph" >
+        </div>
+    </div>
+
+<div id="div1"> {{value_in_select}}</div>
+
+
+<div id="container1" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+
+<button id="button" class="autocompare">Set new data</button>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="/static/highcharts.js"></script>
+<script src="/static/exporting.js"></script>
+
+<script>
+    
+$( document ).ready(function () {
+    $('#container1').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Stacked bar chart'
+        },
+        xAxis: {
+            categories: ['excellent','good','fair','poor','very bad']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total fruit consumption'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'total',
+            data: [5, 3, 4, 7, 2]
+        }, {
+            name: 'undergraduate',
+            data: [2, 2, 3, 2, 1]
+        }, {
+            name: 'graduate',
+            data: [3, 4, 4, 2, 5]
+        }]
+    });
+
+    
+});
+
+
+</script>
+
+<script>
+$(document).ready(function(){
+ $("#button").click(function(e) {
+
+    var url = "/create_post"; // the script where you handle the form input.
+    var car1 = 'NQ1';
+    var selectData = 'canada';
+    $.ajax({
+           type: "POST",
+           url: url,
+           dataType: "json",
+           data: JSON.stringify({column : car1, select_data: selectData})   ,
+           success: function(result){
+            var chart = $('#container1').highcharts();
+            chart.series[0].setData(result[1]);
+        }});
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+});
+});
+
+</script>
+
+{% endblock %}
